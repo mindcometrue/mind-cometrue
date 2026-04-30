@@ -1,110 +1,58 @@
-// Web Component for Factor Card
-class FactorCard extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
+function initParticles() {
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let raf;
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
 
-    connectedCallback() {
-        const title = this.getAttribute('title');
-        const description = this.getAttribute('description');
-        
-        this.shadowRoot.innerHTML = `
-            <style>
-                :host {
-                    display: block;
-                    background: #ffffff;
-                    padding: 3rem;
-                    border: 1px solid #f0f0f0;
-                    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-                    text-align: left;
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 1px 8px rgba(0, 0, 0, 0.02);
-                }
-                :host(:hover) {
-                    transform: translateY(-15px);
-                    border-color: #d4af37;
-                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08), 0 0 15px rgba(212, 175, 55, 0.1);
-                }
-                h3 {
-                    font-family: 'Bodoni Moda', serif;
-                    font-size: 1.8rem;
-                    margin-bottom: 1.2rem;
-                    color: #1a1a1a;
-                    font-weight: 400;
-                }
-                p {
-                    font-family: 'Inter', sans-serif;
-                    font-size: 1rem;
-                    color: #666666;
-                    line-height: 1.8;
-                    font-weight: 300;
-                }
-                .accent {
-                    width: 40px;
-                    height: 1px;
-                    background-color: #d4af37;
-                    margin-bottom: 2rem;
-                }
-            </style>
-            <div class="accent"></div>
-            <h3>${title}</h3>
-            <p>${description}</p>
-        `;
+    class Particle {
+        constructor() { this.reset(true); }
+        reset(random) {
+            this.x = Math.random() * canvas.width;
+            this.y = random ? Math.random() * canvas.height : (Math.random() < 0.5 ? -2 : canvas.height + 2);
+            this.r = Math.random() * 1.4 + 0.2;
+            this.vx = (Math.random() - 0.5) * 0.18;
+            this.vy = (Math.random() - 0.5) * 0.18;
+            this.a = Math.random() * 0.45 + 0.08;
+            this.gold = Math.random() > 0.65;
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            if (this.x < -4 || this.x > canvas.width + 4 || this.y < -4 || this.y > canvas.height + 4) {
+                this.reset(false);
+            }
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+            ctx.fillStyle = this.gold
+                ? `rgba(201,168,76,${this.a})`
+                : `rgba(232,227,216,${this.a * 0.4})`;
+            ctx.fill();
+        }
     }
+
+    resize();
+    window.addEventListener('resize', resize);
+    particles = Array.from({ length: 130 }, () => new Particle());
+
+    function loop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        raf = requestAnimationFrame(loop);
+    }
+
+    loop();
+    canvas.classList.add('on');
 }
-customElements.define('factor-card', FactorCard);
 
-// Main Logic
-(function() {
-    console.log('Main logic executing');
-    
-    // Fallback enter function
-    window.enterExperience = function() {
-        console.log('enterExperience called');
-        const landingPage = document.getElementById('landing-page');
-        const mainContent = document.getElementById('main-content');
-        if (landingPage && mainContent) {
-            landingPage.style.opacity = '0';
-            landingPage.style.pointerEvents = 'none';
-            setTimeout(() => {
-                landingPage.style.display = 'none';
-                mainContent.style.display = 'block';
-                window.scrollTo(0, 0);
-                initScrollReveal();
-            }, 1000);
-        }
-    };
-
-    const init = () => {
-        const enterBtn = document.getElementById('enter-btn');
-        if (enterBtn) {
-            console.log('Enter button found, attaching listener');
-            enterBtn.onclick = function(e) {
-                console.log('Enter button clicked via onclick');
-                window.enterExperience();
-            };
-            enterBtn.addEventListener('click', () => {
-                console.log('Enter button clicked via addEventListener');
-                window.enterExperience();
-            });
-        }
-
-        const newAffirmationBtn = document.getElementById('new-affirmation-btn');
-        if (newAffirmationBtn) {
-            newAffirmationBtn.onclick = updateAffirmation;
-        }
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.onclick = function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            };
-        });
-    };
-
+(function () {
     const affirmations = [
         "나는 지금 너무 행복하고 감사하다. 다양한 경로를 통해 지속적으로 점점 더 많은 돈이 나에게 들어온다.",
         "나는 돈을 끌어당기는 자석이다. 번영이 나에게 이끌려온다.",
@@ -119,26 +67,95 @@ customElements.define('factor-card', FactorCard);
         "I am so happy and grateful now that money comes to me in increasing quantities through multiple sources on a continuous basis."
     ];
 
+    let lastIdx = -1;
+
+    function nextAffirmation() {
+        let idx;
+        do { idx = Math.floor(Math.random() * affirmations.length); }
+        while (idx === lastIdx);
+        lastIdx = idx;
+        return affirmations[idx];
+    }
+
     function updateAffirmation() {
-        const affirmationDisplay = document.getElementById('affirmation-display');
-        if (!affirmationDisplay) return;
-        affirmationDisplay.style.opacity = '0';
+        const el = document.getElementById('affirmation-display');
+        if (!el) return;
+        el.style.opacity = '0';
         setTimeout(() => {
-            const randomIndex = Math.floor(Math.random() * affirmations.length);
-            affirmationDisplay.textContent = `"${affirmations[randomIndex]}"`;
-            affirmationDisplay.style.opacity = '1';
-        }, 600);
+            el.textContent = `"${nextAffirmation()}"`;
+            el.style.opacity = '1';
+        }, 500);
     }
 
     function initScrollReveal() {
-        const reveals = document.querySelectorAll('section, .factors-grid > *, .step-card, .affirmation-box');
-        reveals.forEach(el => el.classList.add('reveal'));
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
             });
         }, { threshold: 0.1 });
-        reveals.forEach(reveal => observer.observe(reveal));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
+
+    function initHeader() {
+        const header = document.getElementById('site-header');
+        if (!header) return;
+        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
+        window.addEventListener('scroll', onScroll, { passive: true });
+    }
+
+    function initHamburger() {
+        const btn = document.getElementById('hamburger');
+        const links = document.getElementById('nav-links');
+        if (!btn || !links) return;
+        btn.addEventListener('click', () => {
+            btn.classList.toggle('open');
+            links.classList.toggle('open');
+        });
+        links.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                btn.classList.remove('open');
+                links.classList.remove('open');
+            });
+        });
+    }
+
+    function initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    }
+
+    function enterExperience() {
+        const landing = document.getElementById('landing-page');
+        const main = document.getElementById('main-content');
+        if (!landing || !main) return;
+
+        landing.style.opacity = '0';
+        landing.style.pointerEvents = 'none';
+
+        setTimeout(() => {
+            landing.style.display = 'none';
+            main.style.display = 'block';
+            window.scrollTo(0, 0);
+            initScrollReveal();
+            initHeader();
+            initHamburger();
+            initSmoothScroll();
+            document.getElementById('new-affirmation-btn')
+                ?.addEventListener('click', updateAffirmation);
+        }, 1400);
+    }
+
+    function init() {
+        initParticles();
+        document.getElementById('enter-btn')?.addEventListener('click', enterExperience);
     }
 
     if (document.readyState === 'loading') {
