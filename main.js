@@ -55,16 +55,21 @@ class FactorCard extends HTMLElement {
 customElements.define('factor-card', FactorCard);
 
 // Main Logic
-document.addEventListener('DOMContentLoaded', () => {
+(function() {
+    console.log('Main logic executing');
+    const debugDot = document.getElementById('debug-dot');
+    if (debugDot) debugDot.style.display = 'block';
+
     const enterBtn = document.getElementById('enter-btn');
     const landingPage = document.getElementById('landing-page');
     const mainContent = document.getElementById('main-content');
     const affirmationDisplay = document.getElementById('affirmation-display');
     const newAffirmationBtn = document.getElementById('new-affirmation-btn');
 
-    // Transitions
     if (enterBtn) {
-        enterBtn.addEventListener('click', () => {
+        enterBtn.onclick = () => {
+            console.log('Enter button clicked');
+            if (debugDot) debugDot.style.background = 'green';
             landingPage.style.opacity = '0';
             setTimeout(() => {
                 landingPage.style.display = 'none';
@@ -72,16 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.scrollTo(0, 0);
                 initScrollReveal();
             }, 1000);
-        });
+        };
     }
 
-    // Authentic Bob Proctor Affirmations
     const affirmations = [
         "나는 지금 너무 행복하고 감사하다. 다양한 경로를 통해 지속적으로 점점 더 많은 돈이 나에게 들어온다.",
         "나는 돈을 끌어당기는 자석이다. 번영이 나에게 이끌려온다.",
         "부의 흐름이 내 삶에 끊임없이 흐른다.",
         "나의 수입은 항상 지출보다 크다.",
-        "나는 삶이 제공하는 모든 부에 대해 마음이 열려 있으며 이를 받아들일 준비가 되어 있다.",
+        "나는 삶이 제공하는 모든 부에 대해 마음이 열려 있으며 이를 받아일 준비가 되어 있다.",
         "내가 생각하는 것이 나의 현실이 된다.",
         "나의 잠재의식은 부의 아이디어를 현실로 바꾼다.",
         "내 마음속의 이미지는 곧 나의 손안에 쥐어질 것이다.",
@@ -101,43 +105,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (newAffirmationBtn) {
-        newAffirmationBtn.addEventListener('click', updateAffirmation);
+        newAffirmationBtn.onclick = updateAffirmation;
     }
     
-    // Smooth Scroll for Nav Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+        anchor.onclick = function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
+                target.scrollIntoView({ behavior: 'smooth' });
             }
-        });
+        };
     });
 
-    // Scroll Reveal Logic
     function initScrollReveal() {
         const reveals = document.querySelectorAll('section, .factors-grid > *, .step-card, .affirmation-box');
-        
         reveals.forEach(el => el.classList.add('reveal'));
-
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
-        }, observerOptions);
-
-        reveals.forEach(reveal => {
-            observer.observe(reveal);
-        });
+        }, { threshold: 0.1 });
+        reveals.forEach(reveal => observer.observe(reveal));
     }
-});
+})();
