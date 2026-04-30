@@ -57,35 +57,60 @@ customElements.define('factor-card', FactorCard);
 // Main Logic
 (function() {
     console.log('Main logic executing');
-    const debugDot = document.getElementById('debug-dot');
-    if (debugDot) debugDot.style.display = 'block';
-
-    const enterBtn = document.getElementById('enter-btn');
-    const landingPage = document.getElementById('landing-page');
-    const mainContent = document.getElementById('main-content');
-    const affirmationDisplay = document.getElementById('affirmation-display');
-    const newAffirmationBtn = document.getElementById('new-affirmation-btn');
-
-    if (enterBtn) {
-        enterBtn.onclick = () => {
-            console.log('Enter button clicked');
-            if (debugDot) debugDot.style.background = 'green';
+    
+    // Fallback enter function
+    window.enterExperience = function() {
+        console.log('enterExperience called');
+        const landingPage = document.getElementById('landing-page');
+        const mainContent = document.getElementById('main-content');
+        if (landingPage && mainContent) {
             landingPage.style.opacity = '0';
+            landingPage.style.pointerEvents = 'none';
             setTimeout(() => {
                 landingPage.style.display = 'none';
                 mainContent.style.display = 'block';
                 window.scrollTo(0, 0);
                 initScrollReveal();
             }, 1000);
-        };
-    }
+        }
+    };
+
+    const init = () => {
+        const enterBtn = document.getElementById('enter-btn');
+        if (enterBtn) {
+            console.log('Enter button found, attaching listener');
+            enterBtn.onclick = function(e) {
+                console.log('Enter button clicked via onclick');
+                window.enterExperience();
+            };
+            enterBtn.addEventListener('click', () => {
+                console.log('Enter button clicked via addEventListener');
+                window.enterExperience();
+            });
+        }
+
+        const newAffirmationBtn = document.getElementById('new-affirmation-btn');
+        if (newAffirmationBtn) {
+            newAffirmationBtn.onclick = updateAffirmation;
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.onclick = function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            };
+        });
+    };
 
     const affirmations = [
         "나는 지금 너무 행복하고 감사하다. 다양한 경로를 통해 지속적으로 점점 더 많은 돈이 나에게 들어온다.",
         "나는 돈을 끌어당기는 자석이다. 번영이 나에게 이끌려온다.",
         "부의 흐름이 내 삶에 끊임없이 흐른다.",
         "나의 수입은 항상 지출보다 크다.",
-        "나는 삶이 제공하는 모든 부에 대해 마음이 열려 있으며 이를 받아일 준비가 되어 있다.",
+        "나는 삶이 제공하는 모든 부에 대해 마음이 열려 있으며 이를 받아들일 준비가 되어 있다.",
         "내가 생각하는 것이 나의 현실이 된다.",
         "나의 잠재의식은 부의 아이디어를 현실로 바꾼다.",
         "내 마음속의 이미지는 곧 나의 손안에 쥐어질 것이다.",
@@ -95,6 +120,7 @@ customElements.define('factor-card', FactorCard);
     ];
 
     function updateAffirmation() {
+        const affirmationDisplay = document.getElementById('affirmation-display');
         if (!affirmationDisplay) return;
         affirmationDisplay.style.opacity = '0';
         setTimeout(() => {
@@ -103,20 +129,6 @@ customElements.define('factor-card', FactorCard);
             affirmationDisplay.style.opacity = '1';
         }, 600);
     }
-
-    if (newAffirmationBtn) {
-        newAffirmationBtn.onclick = updateAffirmation;
-    }
-    
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.onclick = function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        };
-    });
 
     function initScrollReveal() {
         const reveals = document.querySelectorAll('section, .factors-grid > *, .step-card, .affirmation-box');
@@ -127,5 +139,11 @@ customElements.define('factor-card', FactorCard);
             });
         }, { threshold: 0.1 });
         reveals.forEach(reveal => observer.observe(reveal));
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
     }
 })();
