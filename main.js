@@ -75,20 +75,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Affirmations
+    // Authentic Bob Proctor Affirmations
     const affirmations = [
-        "나는 우주의 무한한 풍요와 연결되어 있다.",
+        "나는 지금 너무 행복하고 감사하다. 다양한 경로를 통해 지속적으로 점점 더 많은 돈이 나에게 들어온다.",
+        "나는 돈을 끌어당기는 자석이다. 번영이 나에게 이끌려온다.",
+        "부의 흐름이 내 삶에 끊임없이 흐른다.",
+        "나의 수입은 항상 지출보다 크다.",
+        "나는 삶이 제공하는 모든 부에 대해 마음이 열려 있으며 이를 받아들일 준비가 되어 있다.",
         "내가 생각하는 것이 나의 현실이 된다.",
-        "나는 매일 모든 면에서 점점 더 나아지고 있다.",
-        "돈은 내가 가치를 제공할 때 자연스럽게 따라오는 에너지다.",
         "나의 잠재의식은 부의 아이디어를 현실로 바꾼다.",
-        "나는 풍요를 누릴 자격이 충분한 존재다.",
-        "성공은 나의 의무이자 책임이다.",
-        "나는 기회를 발견하고 그것을 현실로 만드는 눈을 가졌다.",
-        "부의 흐름은 나를 향해 끊임없이 흐른다.",
         "내 마음속의 이미지는 곧 나의 손안에 쥐어질 것이다.",
         "풍요는 나의 자연스러운 상태이며, 나는 그것을 기꺼이 받아들인다.",
-        "나는 이미 내가 원하는 미래를 살고 있는 사람처럼 행동한다."
+        "나는 우주의 무한한 풍요와 연결되어 있다.",
+        "I am so happy and grateful now that money comes to me in increasing quantities through multiple sources on a continuous basis."
     ];
 
     function updateAffirmation() {
