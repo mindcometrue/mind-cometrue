@@ -9,7 +9,7 @@ class FactorCard extends HTMLElement {
         const title = this.getAttribute('title');
         const description = this.getAttribute('description');
         
-        this.shadowRoot.innerHTML = \`
+        this.shadowRoot.innerHTML = `
             <style>
                 :host {
                     display: block;
@@ -47,9 +47,9 @@ class FactorCard extends HTMLElement {
                 }
             </style>
             <div class="accent"></div>
-            <h3>\${title}</h3>
-            <p>\${description}</p>
-        \`;
+            <h3>${title}</h3>
+            <p>${description}</p>
+        `;
     }
 }
 customElements.define('factor-card', FactorCard);
@@ -63,15 +63,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const newAffirmationBtn = document.getElementById('new-affirmation-btn');
 
     // Transitions
-    enterBtn.addEventListener('click', () => {
-        landingPage.style.opacity = '0';
-        setTimeout(() => {
-            landingPage.style.display = 'none';
-            mainContent.style.display = 'block';
-            window.scrollTo(0, 0);
-            initScrollReveal();
-        }, 1000);
-    });
+    if (enterBtn) {
+        enterBtn.addEventListener('click', () => {
+            landingPage.style.opacity = '0';
+            setTimeout(() => {
+                landingPage.style.display = 'none';
+                mainContent.style.display = 'block';
+                window.scrollTo(0, 0);
+                initScrollReveal();
+            }, 1000);
+        });
+    }
 
     // Affirmations
     const affirmations = [
@@ -90,15 +92,18 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function updateAffirmation() {
+        if (!affirmationDisplay) return;
         affirmationDisplay.style.opacity = '0';
         setTimeout(() => {
             const randomIndex = Math.floor(Math.random() * affirmations.length);
-            affirmationDisplay.textContent = \`"\${affirmations[randomIndex]}"\`;
+            affirmationDisplay.textContent = `"${affirmations[randomIndex]}"`;
             affirmationDisplay.style.opacity = '1';
         }, 600);
     }
 
-    newAffirmationBtn.addEventListener('click', updateAffirmation);
+    if (newAffirmationBtn) {
+        newAffirmationBtn.addEventListener('click', updateAffirmation);
+    }
     
     // Smooth Scroll for Nav Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -125,7 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { entry.target.classList.toggle('active', entry.isIntersecting); });
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
         }, observerOptions);
 
         reveals.forEach(reveal => {
