@@ -1,15 +1,135 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const enterBtn = document.getElementById('enter-btn');
-  const landingPage = document.getElementById('landing-page');
-  const mainContent = document.getElementById('main-content');
+// Web Component for Factor Card
+class FactorCard extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
 
-  enterBtn.addEventListener('click', () => {
-    // Fade out landing page
-    landingPage.style.opacity = '0';
+    connectedCallback() {
+        const title = this.getAttribute('title');
+        const description = this.getAttribute('description');
+        
+        this.shadowRoot.innerHTML = \`
+            <style>
+                :host {
+                    display: block;
+                    background: #ffffff;
+                    padding: 3rem;
+                    border: 1px solid #f0f0f0;
+                    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+                    text-align: left;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 1px 8px rgba(0, 0, 0, 0.02);
+                }
+                :host(:hover) {
+                    transform: translateY(-15px);
+                    border-color: #d4af37;
+                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08), 0 0 15px rgba(212, 175, 55, 0.1);
+                }
+                h3 {
+                    font-family: 'Bodoni Moda', serif;
+                    font-size: 1.8rem;
+                    margin-bottom: 1.2rem;
+                    color: #1a1a1a;
+                    font-weight: 400;
+                }
+                p {
+                    font-family: 'Inter', sans-serif;
+                    font-size: 1rem;
+                    color: #666666;
+                    line-height: 1.8;
+                    font-weight: 300;
+                }
+                .accent {
+                    width: 40px;
+                    height: 1px;
+                    background-color: #d4af37;
+                    margin-bottom: 2rem;
+                }
+            </style>
+            <div class="accent"></div>
+            <h3>\${title}</h3>
+            <p>\${description}</p>
+        \`;
+    }
+}
+customElements.define('factor-card', FactorCard);
+
+// Main Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const enterBtn = document.getElementById('enter-btn');
+    const landingPage = document.getElementById('landing-page');
+    const mainContent = document.getElementById('main-content');
+    const affirmationDisplay = document.getElementById('affirmation-display');
+    const newAffirmationBtn = document.getElementById('new-affirmation-btn');
+
+    // Transitions
+    enterBtn.addEventListener('click', () => {
+        landingPage.style.opacity = '0';
+        setTimeout(() => {
+            landingPage.style.display = 'none';
+            mainContent.style.display = 'block';
+            window.scrollTo(0, 0);
+            initScrollReveal();
+        }, 1000);
+    });
+
+    // Affirmations
+    const affirmations = [
+        "나는 우주의 무한한 풍요와 연결되어 있다.",
+        "내가 생각하는 것이 나의 현실이 된다.",
+        "나는 매일 모든 면에서 점점 더 나아지고 있다.",
+        "돈은 내가 가치를 제공할 때 자연스럽게 따라오는 에너지다.",
+        "나의 잠재의식은 부의 아이디어를 현실로 바꾼다.",
+        "나는 풍요를 누릴 자격이 충분한 존재다.",
+        "성공은 나의 의무이자 책임이다.",
+        "나는 기회를 발견하고 그것을 현실로 만드는 눈을 가졌다.",
+        "부의 흐름은 나를 향해 끊임없이 흐른다.",
+        "내 마음속의 이미지는 곧 나의 손안에 쥐어질 것이다.",
+        "풍요는 나의 자연스러운 상태이며, 나는 그것을 기꺼이 받아들인다.",
+        "나는 이미 내가 원하는 미래를 살고 있는 사람처럼 행동한다."
+    ];
+
+    function updateAffirmation() {
+        affirmationDisplay.style.opacity = '0';
+        setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * affirmations.length);
+            affirmationDisplay.textContent = \`"\${affirmations[randomIndex]}"\`;
+            affirmationDisplay.style.opacity = '1';
+        }, 600);
+    }
+
+    newAffirmationBtn.addEventListener('click', updateAffirmation);
     
-    setTimeout(() => {
-      landingPage.style.display = 'none';
-      mainContent.style.display = 'block';
-    }, 800);
-  });
+    // Smooth Scroll for Nav Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Scroll Reveal Logic
+    function initScrollReveal() {
+        const reveals = document.querySelectorAll('section, .factors-grid > *, .step-card, .affirmation-box');
+        
+        reveals.forEach(el => el.classList.add('reveal'));
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { entry.target.classList.toggle('active', entry.isIntersecting); });
+        }, observerOptions);
+
+        reveals.forEach(reveal => {
+            observer.observe(reveal);
+        });
+    }
 });
