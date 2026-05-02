@@ -192,6 +192,22 @@ body {
     margin-bottom: 1.5rem;
 }
 
+/* Master Summary Styling */
+.master-summary h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin: 2.5rem 0 1rem;
+    border-bottom: 1px solid rgba(193, 154, 107, 0.2);
+    padding-bottom: 0.5rem;
+}
+
+.master-summary p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-main);
+}
+
 .modal-text blockquote {
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;

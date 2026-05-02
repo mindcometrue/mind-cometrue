@@ -250,7 +250,62 @@ const modalBody = document.getElementById('modal-body');
 const closeBtn = document.querySelector('.close-modal');
 
 const masterContents = {
-    // ... (existing masters)
+    'bob-proctor': {
+        title: "Bob Proctor: 패러다임 전환의 마스터",
+        body: `
+            <div class="master-summary">
+                <p><strong>밥 프록터(Bob Proctor)</strong>는 현대 성공 철학에서 '패러다임'이라는 개념을 가장 명확하게 정립한 인물입니다.</p>
+                <h3>1. 패러다임 (Paradigm)</h3>
+                <p>우리의 행동과 결과의 95% 이상을 지배하는 잠재의식 속의 프로그램입니다. 밥 프록터는 아무리 의식적으로 노력해도 인생이 제자리인 이유는 이 패러다임이 당신을 통제하고 있기 때문이라고 설명합니다.</p>
+                <h3>2. 진동의 법칙 (Law of Vibration)</h3>
+                <p>우주와 우리 몸은 에너지이며, 고정된 주파수(Vibration)를 가집니다. 당신의 생각이 어떤 주파수에 머무느냐에 따라 그에 맞는 현실이 끌려옵니다.</p>
+                <h3>3. 실천 가이드: 반복 (Repetition)</h3>
+                <p>낡은 패러다임을 깨는 유일한 방법은 새로운 아이디어를 반복해서 잠재의식에 심는 것입니다. 원하는 미래를 현재형으로 기록하고 매일 읽으십시오.</p>
+            </div>
+        `
+    },
+    'neville-goddard': {
+        title: "Neville Goddard: 상상력과 가정의 법칙",
+        body: `
+            <div class="master-summary">
+                <p><strong>네빌 고다드(Neville Goddard)</strong>는 '상상이 현실을 창조한다'는 원리를 전파한 거장입니다.</p>
+                <h3>1. 가정의 법칙 (Law of Assumption)</h3>
+                <p>소망이 이미 이루어졌다고 '가정'하고 그 느낌 속에서 사는 법입니다. 네빌은 소망이 성취되었을 때의 '안도감'과 '기쁨'에 머무는 것이 창조의 핵심이라고 강조했습니다.</p>
+                <h3>2. 시각화 (Visualization)</h3>
+                <p>단순한 이미지가 아니라, 오감을 동원하여 그 장면을 실제로 느끼는 단계입니다. 소망이 이루어진 직후에 일어날 짧은 행동을 반복적으로 상상하십시오.</p>
+                <h3>3. 실천 가이드: SATS</h3>
+                <p>잠들기 직전, 몸이 이완된 상태에서 소망이 성취된 장면을 반복하며 그 전율 속에서 잠드십시오. 잠재의식은 잠든 동안 당신의 가정을 현실로 조각합니다.</p>
+            </div>
+        `
+    },
+    'joseph-murphy': {
+        title: "Joseph Murphy: 잠재의식 속에 숨겨진 부의 기적",
+        body: `
+            <div class="master-summary">
+                <p><strong>조셉 머피(Joseph Murphy)</strong> 박사는 잠재의식을 일종의 '비옥한 토양'으로 묘사했습니다.</p>
+                <h3>1. 잠재의식의 작동 원리</h3>
+                <p>잠재의식은 비판이나 판단 없이 당신의 지시를 따르는 무한한 지능의 보고입니다. 당신이 심은 생각의 씨앗이 무엇이든 그대로 자라게 합니다.</p>
+                <h3>2. 과학적 기도법 (Affirmation)</h3>
+                <p>이미 가지고 있다는 감사의 마음으로 잠재의식에 말을 거는 법입니다. 명확한 선언을 통해 잠재의식에 성공의 주파수를 각인시킬 수 있습니다.</p>
+                <h3>3. 실천 가이드: 수면 전 암시</h3>
+                <p>잠재의식과 가장 가깝게 만나는 시간은 잠들기 직전입니다. 이때 갈등 없는 평온한 상태에서 "성공", "부", "건강"과 같은 단어를 반복적으로 속삭이십시오.</p>
+            </div>
+        `
+    },
+    'earl-nightingale': {
+        title: "Earl Nightingale: 인류 역사상 가장 이상한 비밀",
+        body: `
+            <div class="master-summary">
+                <p><strong>얼 나이팅게일(Earl Nightingale)</strong>은 현대 자기계발의 아버지라 불립니다.</p>
+                <h3>1. 가장 이상한 비밀 (The Strangest Secret)</h3>
+                <p>"우리는 우리가 생각하는 대로 된다(We become what we think about)." 이것이 인류 역사상 가장 강력하고 단순한 성공의 법칙입니다.</p>
+                <h3>2. 목표의 중요성</h3>
+                <p>명확한 목적지 없이 바다를 떠도는 배는 결코 항구에 도착할 수 없습니다. 성공은 스스로 정한 가치 있는 목표를 향해 나아가는 과정 그 자체입니다.</p>
+                <h3>3. 실천 가이드: 30일 테스트</h3>
+                <p>오늘부터 30일 동안 당신의 목표를 카드에 적어 매일 바라보십시오. 당신의 마음을 오직 목표에만 집중시키고 최선을 다하십시오.</p>
+            </div>
+        `
+    }
 };
 
 // 5. Masters Affirmations Database
