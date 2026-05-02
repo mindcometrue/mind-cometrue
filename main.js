@@ -250,36 +250,42 @@ const modalBody = document.getElementById('modal-body');
 const closeBtn = document.querySelector('.close-modal');
 
 const masterContents = {
-    'bob-proctor': {
-        title: "Bob Proctor: 패러다임 전환의 선구자",
-        body: `
-            <p><strong>밥 프록터(Bob Proctor)</strong>는 현대 성공 철학에서 '패러다임'이라는 개념을 가장 명확하게 정립한 인물입니다. 그는 우리가 아무리 의식적으로 노력해도 인생이 바뀌지 않는 이유는 잠재의식 속에 깊이 박힌 '패러다임'이 우리를 조종하기 때문이라고 말합니다.</p>
-            <p>밥 프록터의 핵심 가르침은 <strong>'진동의 법칙(Law of Vibration)'</strong>에 기반합니다. 모든 생각은 에너지이며, 우리가 어떤 주파수의 생각을 유지하느냐에 따라 그에 맞는 현실이 끌려온다는 것이죠. 패러다임을 바꾸기 위해서는 새로운 아이디어를 반복해서 입력하고, 그것이 감정적으로 수용될 때까지 끊임없이 자신을 재프로그래밍해야 합니다.</p>
-            <blockquote>"당신의 생각을 바꾸면, 당신의 인생이 바뀝니다."</blockquote>
-        `
-    },
-    'neville-goddard': {
-        title: "Neville Goddard: 가정의 법칙과 시각화",
-        body: `
-            <p><strong>네빌 고다드(Neville Goddard)</strong>는 '상상이 현실을 창조한다'는 원리를 극단적으로 밀어붙인 거장입니다. 그의 핵심 철학은 <strong>'가정의 법칙(Law of Assumption)'</strong>입니다. 즉, 어떤 상태가 이미 이루어졌다고 가정하고 그 느낌 속에서 살아간다면, 현실은 반드시 그 가정을 따라온다는 법칙입니다.</p>
-            <p>네빌은 단순히 상상하는 것보다 '느낌(Feeling)'이 가장 중요하다고 강조했습니다. "느낌이 비밀이다(Feeling is the Secret)"라는 그의 말처럼, 소망이 성취되었을 때 느낄 수 있는 그 안도감과 기쁨에 머무는 것이 창조의 핵심입니다. 잠들기 직전, 소망이 이루어진 상태에서 느낄 수 있는 짧은 장면을 반복하며 그 전율 속에서 잠드는 'SATS' 기법은 오늘날에도 수많은 사람들에게 기적을 선사하고 있습니다.</p>
-        `
-    },
-    'joseph-murphy': {
-        title: "Joseph Murphy: 잠재의식의 기적적인 힘",
-        body: `
-            <p><strong>조셉 머피(Joseph Murphy)</strong> 박사는 잠재의식을 일종의 '비옥한 토양'으로 묘사했습니다. 우리가 그 토양에 어떤 씨앗(생각)을 심든, 잠재의식은 그것을 자라나게 합니다. 그의 저서 [잠재의식의 힘]은 전 세계 수백만 명의 인생을 바꾼 고전입니다.</p>
-            <p>조셉 머피는 잠재의식에 긍정적인 메시지를 새기는 <strong>'기도와 확언'</strong>의 힘을 강조했습니다. 특히 잠들기 전과 깨어난 직후의 비몽사몽한 상태가 잠재의식과 소통하기 가장 좋은 시간임을 밝혀냈죠. "나의 잠재의식은 무한한 부를 알고 있으며, 지금 나에게 그 부를 가져다주고 있다"와 같은 명확한 선언이 어떻게 물질적, 정신적 풍요를 창조하는지 과학적으로 설명합니다.</p>
-        `
-    },
-    'earl-nightingale': {
-        title: "Earl Nightingale: 가장 이상한 비밀",
-        body: `
-            <p><strong>얼 나이팅게일(Earl Nightingale)</strong>은 현대 자기계발의 아버지라 불립니다. 그의 오디오 강연 '가장 이상한 비밀(The Strangest Secret)'은 역사상 최초로 골드 레코드를 기록한 강연이기도 합니다. 그가 발견한 비밀은 너무나 단순해서 오히려 이상할 정도입니다.</p>
-            <p><strong>"우리는 우리가 생각하는 대로 된다(We become what we think about)."</strong> 이것이 그가 말하는 비밀의 전부입니다. 인간은 목표를 가진 선박과 같아서, 명확한 목적지(목표)가 있고 그곳을 향해 올바른 생각을 유지한다면 반드시 도착할 수밖에 없다는 원리입니다. 얼 나이팅게일은 '태도'의 중요성을 특히 강조하며, 성공은 특별한 사람의 전유물이 아니라 올바른 법칙을 따르는 모든 이의 권리임을 설파했습니다.</p>
-        `
-    }
+    // ... (existing masters)
 };
+
+// 5. Masters Affirmations Database
+const affirmations = [
+    { text: "나는 내 인생의 유일한 창조주이며, 내 상상이 곧 나의 현실이 된다.", master: "Neville Goddard" },
+    { text: "나의 잠재의식은 지금 이 순간에도 나를 위해 일하며 부의 길을 열어주고 있다.", master: "Joseph Murphy" },
+    { text: "나는 내 패러다임을 완전히 장악했으며, 나는 내가 생각하는 대로 된다.", master: "Earl Nightingale" },
+    { text: "나는 매일 모든 면에서 점점 더 좋아지고 있다.", master: "Emile Coué" },
+    { text: "나는 부를 끌어당기는 자석이며, 풍요는 자연스럽게 나에게 흘러들어온다.", master: "Bob Proctor" },
+    { text: "이미 이루어진 것처럼 느껴라. 그 느낌이 모든 것을 창조한다.", master: "Neville Goddard" },
+    { text: "내 안의 무한한 지능은 내가 필요로 하는 모든 답을 알고 있다.", master: "Joseph Murphy" },
+    { text: "성공은 내면의 준비가 외부의 기회와 만날 때 일어난다.", master: "Bob Proctor" },
+    { text: "당신이 진정으로 원하고 믿는다면, 온 우주가 당신을 돕기 위해 움직인다.", master: "Earl Nightingale" },
+    { text: "나는 돈을 사랑하고, 돈은 나를 사랑한다. 부는 나의 권리이다.", master: "Joseph Murphy" },
+    { text: "과거는 더 이상 힘이 없다. 오직 지금 이 순간의 내 생각만이 힘을 가진다.", master: "Bob Proctor" },
+    { text: "나는 이미 내가 되고 싶은 그 사람이다.", master: "Neville Goddard" },
+    { text: "나의 수입은 내가 제공하는 서비스의 질과 양에 비례하여 무한히 늘어난다.", master: "Earl Nightingale" },
+    { text: "나는 어떤 상황에서도 평온함을 유지하며, 내면의 힘을 신뢰한다.", master: "Joseph Murphy" },
+    { text: "한계를 설정하는 것은 오직 나의 생각뿐이다. 나는 그 한계를 파괴한다.", master: "Bob Proctor" },
+    { text: "감사는 풍요로 가는 가장 빠른 지름길이다. 나는 이미 모든 것에 감사한다.", master: "Bob Proctor" },
+    { text: "나의 상상은 현실의 그림자가 아니라, 현실 그 자체의 근원이다.", master: "Neville Goddard" },
+    { text: "부유함은 상태일 뿐이다. 나는 풍요의 상태를 선택한다.", master: "Joseph Murphy" },
+    { text: "나는 매일 기적을 기대하며, 실제로 그 기적 속에서 살아간다.", master: "Neville Goddard" },
+    { text: "나의 생각은 씨앗이며, 내 인생은 그 씨앗이 자라난 결과물이다.", master: "Earl Nightingale" },
+    { text: "나는 내 마음의 정원을 가꾸는 정원사이다. 나는 긍정의 씨앗만을 심는다.", master: "Joseph Murphy" },
+    { text: "어떤 목표든 내가 그것에 주파수를 맞춘다면 반드시 실현된다.", master: "Bob Proctor" },
+    { text: "가장 높은 버전의 나를 상상하고, 오늘 그 사람처럼 행동하라.", master: "Bob Proctor" },
+    { text: "안도감은 소망이 이루어졌다는 가장 강력한 신호이다.", master: "Neville Goddard" },
+    { text: "나는 무한한 지혜와 연결되어 있으며, 내 길은 항상 밝게 비춰진다.", master: "Joseph Murphy" },
+    { text: "나는 내가 가진 모든 재능을 발휘하여 세상을 이롭게 한다.", master: "Earl Nightingale" },
+    { text: "부를 담는 그릇은 나의 자기 이미지에 의해 결정된다. 나는 내 그릇을 키운다.", master: "Bob Proctor" },
+    { text: "세상은 나의 내면을 비추는 거울일 뿐이다.", master: "Neville Goddard" },
+    { text: "나는 건강하고, 부유하며, 행복한 존재이다.", master: "Joseph Murphy" },
+    { text: "오늘 하루는 내 인생 최고의 작품이 될 것이다.", master: "Earl Nightingale" }
+];
 
 window.openDetail = (topicId) => {
     const content = masterContents[topicId];
@@ -293,6 +299,23 @@ window.openDetail = (topicId) => {
         document.body.style.overflow = 'hidden';
     }
 };
+
+window.openAffirmation = () => {
+    const random = affirmations[Math.floor(Math.random() * affirmations.length)];
+    modalBody.innerHTML = `
+        <div class="affirmation-view">
+            <span class="affirmation-master">Daily Wisdom from ${random.master}</span>
+            <h2 class="affirmation-text">"${random.text}"</h2>
+            <p class="affirmation-sub">이 문장을 3번 소리 내어 읽고, 온몸으로 그 느낌을 받아들이세요.</p>
+            <button class="btn-refresh" onclick="window.openAffirmation()">다른 확언 받기</button>
+        </div>
+    `;
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+};
+
+document.getElementById('master-affirmation-btn').addEventListener('click', window.openAffirmation);
 
 closeBtn.addEventListener('click', () => {
     modal.style.display = 'none';

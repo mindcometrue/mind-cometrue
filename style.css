@@ -45,11 +45,75 @@ body {
     padding: 0 2rem;
 }
 
-/* Hero Section */
-.hero {
-    padding: 12rem 0 6rem;
+/* Hero Section Action */
+.hero-action {
+    margin-top: 3rem;
+}
+
+.main-cta {
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    background: var(--primary);
+    border: none;
+    border-radius: 3rem;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(45, 27, 13, 0.2);
+    transition: all 0.3s ease;
+}
+
+.main-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(45, 27, 13, 0.3);
+    background: #3d2b1d;
+}
+
+/* Affirmation View in Modal */
+.affirmation-view {
     text-align: center;
-    background: linear-gradient(180deg, #f5efe6 0%, var(--bg-soft) 100%);
+    padding: 2rem 0;
+}
+
+.affirmation-master {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.affirmation-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem) !important;
+    line-height: 1.4 !important;
+    color: var(--primary);
+    margin-bottom: 2rem !important;
+}
+
+.affirmation-sub {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    font-style: italic;
+}
+
+.btn-refresh {
+    padding: 0.8rem 2rem;
+    background: none;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    border-radius: 2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-refresh:hover {
+    background: var(--accent);
+    color: white;
 }
 
 .hero-title {
