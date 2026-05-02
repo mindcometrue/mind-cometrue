@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "product-builder-60081376-5f0ec",
     "public": ".",
     "ignore": [
       "firebase.json",

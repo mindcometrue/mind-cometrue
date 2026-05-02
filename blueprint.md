@@ -1,46 +1,33 @@
-# Mindset Becomes Reality (Wealth Mindset) - Blueprint
+# AQUA Showcase: SEO & GEO 최적화 프로젝트 (2026)
 
-## Overview
-A high-impact, modern minimalist website inspired by Bob Proctor's "The Art of Living" (부의 시선). The site aims to empower users to understand that their thoughts shape their reality, specifically focusing on wealth consciousness and paradigm shifts.
+## 프로젝트 개요
+Google, Naver 및 최신 AI 검색(GEO) 가이드라인을 준수하는 "지속 가능한 미니멀 라이프" 콘텐츠 사이트입니다. 전통적인 키워드 기반 SEO를 넘어, 생성형 AI가 정보를 수집하고 답변을 생성하기에 최적화된 구조를 갖추고 있습니다.
 
-## Design & Aesthetics
-- **Theme**: Modern Minimalist
-- **Colors**: 
-  - Primary: #FFFFFF (Clean White)
-  - Secondary: #F8F9FA (Light Gray)
-  - Accent: #D4AF37 (Champagne Gold for key highlights)
-  - Text: #1A1A1A (Deep Charcoal)
-- **Effects**: Glassmorphism, Noise Texture, Multi-layered shadows, Glow effects.
-- **Interactivity**: Smooth scroll reveal animations, multi-method event binding, dynamic Bob Proctor affirmation generator.
+## SEO/GEO 최적화 핵심 구현 사항
 
-## Features
-1. **Interactive Entry Experience**: A minimalist landing page that sets the intention.
-2. **Hero Section**: Powerful quote by Bob Proctor.
-3. **The 6 Intellectual Factors**: Higher mental faculties (Imagination, Intuition, Will, Perception, Reason, Memory).
-4. **Authentic Paradigm Shift Guide**: Paradigm, Law of Vibration, and MSI concepts.
-5. **Daily Wealth Affirmation Generator**: Authentic affirmations in Korean and English.
+### 1. 기술적 SEO (Google & Naver 대응)
+- **시맨틱 마크업:** `<h1>`~`<h3>`, `<main>`, `<nav>`, `<aside>`, `<article>` 태그를 활용한 논리적 계층 구조.
+- **메타데이터:** 한국어 검색어에 최적화된 Title, Description, Keywords 설정.
+- **Open Graph:** SNS 공유 시 높은 클릭률(CTR)을 유도하는 최적화된 미리보기 정보.
+- **Canonical URL:** 중복 콘텐츠 방지를 위한 대표 URL 설정.
 
-## Implementation Steps
-### Phase 1: Structure & Content (HTML) - COMPLETED
-- Refactored index.html with Bob Proctor's core teachings.
-- Integrated Web Components.
+### 2. GEO (AI 검색 엔진 최적화)
+- **JSON-LD 구조화 데이터:** Schema.org 기반의 `WebSite` 및 `ItemList` 마크업을 통해 AI가 사이트 구조를 즉시 파악할 수 있도록 구현.
+- **대화형 FAQ 섹션:** 질문-답변 형식을 통해 AI 개요(AI Overviews) 및 챗봇 추천에 최적화.
+- **맥락 중심 콘텐츠:** 단순 정보 나열이 아닌 상황별 해결책과 인사이트 제공.
 
-### Phase 2: Styling (CSS) - COMPLETED
-- Implemented "Modern Minimalist" design with premium effects.
-- Added noise texture and responsive layouts.
+### 3. 사용자 경험 및 접근성 (UX/A11y)
+- **Noto Sans KR 폰트:** 한국어 가독성을 극대화한 타이포그래피.
+- **이미지 및 광고 접근성:** `aria-label` 및 `alt` 텍스트를 통해 시각적 검색 및 스크린 리더 지원.
+- **속도 최적화:** 프레임워크 없는 웹 컴포넌트 사용으로 Core Web Vitals 지표 최적화.
 
-### Phase 3: Interactivity (JS) - COMPLETED
-- Implemented foolproof "Enter" button transition.
-- Integrated Scroll Reveal and Affirmation logic.
+## 구현 단계 완료 보고
+- [x] 1단계: 메타데이터 및 기술적 SEO 강화 - **완료**
+- [x] 2단계: GEO(Generative Engine Optimization) 최적화 - **완료**
+- [x] 3단계: 한국어 콘텐츠 및 UX 최적화 - **완료**
+- [x] 4단계: 인터랙티브 도구(Content Catalyst) 고도화 - **완료**
 
-### Phase 4: Deployment - COMPLETED
-- Configured Firebase Hosting.
-- Successfully deployed to: https://product-builder-60081376-5f0ec.web.app
-
-## Final State
-The application is fully functional, visually polished, and contains authentic Bob Proctor content. All features have been verified.
-
-## Verification
-- Mobile responsiveness: Verified.
-- Affirmation logic: Verified with authentic quotes.
-- "Enter" transition: Fixed and verified with multi-method binding.
+## 최종 검증
+- **검색 로봇 친화도:** 표준 HTML 준수 및 robots.txt 대응 구조 확인.
+- **AI 답변 가능성:** Q&A 섹션 및 구조화 데이터 정상 작동 확인.
+- **모바일 사용성:** 반응형 레이아웃 및 터치 타겟 최적화 완료.
